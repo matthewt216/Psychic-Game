@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="UTF-8">
+            <title>Psychic Game</title>
+    </head>
+    <body>
+        <h1>The Psychic Game</h1>
+        <p>Guess what letter I'm thinking of</p>
+        <p id="wins"></p>
+        <p id="losses"></p>
+        <p id="guesses"></p>
+        <p id="letters"></p>
+
+
+        <script type="text/javascript">
+        var winscounter = 0;
+        var lossescounter = 0;
+        var guessescounter = 9;
+        var letterslist = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        var randomletter = letterslist[Math.floor(Math.random() * 26)];
+        var win = document.getElementById("wins");
+        var losses = document.getElementById("losses");
+        var guesses = document.getElementById("guesses");
+        var letters = document.getElementById("letters");
+
+        win.textContent = "Wins: " + winscounter;
+        losses.textContent = "Losses: " + lossescounter;
+        guesses.textContent = "Guesses Left: " + guessescounter;
+        letters.textContent = "Your Guesses so far: ";
+        document.onkeyup = function(event){
+
+            var lett = event.key.toLowerCase();
+            if (lett === randomletter){
+                winscounter = winscounter + 1;
+                win.textContent = "Wins: " + winscounter;
+                guessescounter = 9;
+                guesses.textContent = "Guesses Left: " + guessescounter;
+                letters.textContent = "Your Guesses so far: ";
+                randomletter = letterslist[Math.floor(Math.random() * 26)];
+
+
+            }
+            else if (lett !== randomletter && guessescounter !== 1){
+                guessescounter--;
+                guesses.textContent = "Guesses Left: " + guessescounter;
+                letters.textContent = letters.textContent + " " + lett;
+            }
+            else {
+                lossescounter++;
+                losses.textContent = "Losses: " + lossescounter;
+                guessescounter = 9;
+                guesses.textContent = "Guesses Left: " + guessescounter;
+                letters.textContent = "Your Guesses so far: ";
+                randomletter = letterslist[Math.floor(Math.random() * 26)];
+            }
+        }
+
+        </script>
+    </body>
+</html>
